@@ -6,6 +6,9 @@ namespace Poker
 {
     class Program
     {
+
+        //Hi! This is probalby over-engineered and under-tested. I did what I could given the time constraints. Don't judge me too harsly!
+
         static void Main(string[] args)
         {
             try
@@ -15,7 +18,7 @@ namespace Poker
                 var bestToWorstHands = gameState.PlayerHands.OrderBy(x => x).ToArray();
                 var winningHands = bestToWorstHands.Where(x => x.Equals(bestToWorstHands.First()));
                 var winningIds = winningHands.Select(x => x.PlayerId).OrderBy(x => x);
-                Console.Out.WriteLine(string.Join(", ", winningIds));
+                Console.Out.WriteLine(string.Join(" ", winningIds));
             }
             catch (ArgumentException ex)
             {
