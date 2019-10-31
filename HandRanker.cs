@@ -40,17 +40,11 @@ namespace Poker
             Card lastCard = null;
             foreach (var card in cards.OrderByDescending(x => x.CardValue))
             {
-                if (lastCard == null)
+                if (lastCard != null && lastCard.CardValue - card.CardValue != 1)
                 {
-                    lastCard = card;
+                    return false;
                 }
-                else
-                {
-                    if (lastCard.CardValue - card.CardValue != 1)
-                    {
-                        return false;
-                    }
-                }
+                lastCard = card;
             }
             return true;
         }

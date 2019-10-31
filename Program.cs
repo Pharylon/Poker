@@ -18,7 +18,8 @@ namespace Poker
                 var bestToWorstHands = gameState.PlayerHands.OrderBy(x => x).ToArray();
                 var winningHands = bestToWorstHands.Where(x => x.Equals(bestToWorstHands.First()));
                 var winningIds = winningHands.Select(x => x.PlayerId).OrderBy(x => x);
-                Console.Out.WriteLine(string.Join(" ", winningIds));
+                var output = string.Join(" ", winningIds);
+                Console.Out.WriteLine(output);
             }
             catch (ArgumentException ex)
             {

@@ -16,19 +16,29 @@ namespace Poker
         public int PlayerId { get; private set; }
         public Card[] Hand { get; private set; }
 
-        public HandRank GetRank() => HandRanker.GetRank(this.Hand);
+
+        private HandRank? _handRank;
+        public HandRank HandRank
+        {
+            get
+            {
+                if (_handRank == null)
+                {
+                    _handRank = HandRanker.GetRank(this.Hand);
+                }
+                return _handRank.Value;
+            }
+        }
 
         public int CompareTo(PlayerHand other)
         {
-            var thisRank = HandRanker.GetRank(this.Hand);
-            var otherRank = HandRanker.GetRank(other.Hand);
-            if (thisRank != otherRank)
+            if (this.HandRank != other.HandRank)
             {
-                return otherRank - thisRank;
+                return other.HandRank - this.HandRank;
             }
             var thisHighCard = this.Hand.Select(x => x.CardValue).OrderByDescending(x => x).First();
             var otherHighCard = other.Hand.Select(x => x.CardValue).OrderByDescending(x => x).First();
-            return thisHighCard - otherHighCard;
+            return otherHighCard - thisHighCard;
         }
 
         public bool Equals(PlayerHand other)
