@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Poker
+namespace Poker.Models
 {
-    class Card
+    class Card: IEquatable<Card>
     {
         public Card(CardValue cardValue, Suit suit)
         {
@@ -15,6 +15,11 @@ namespace Poker
         public CardValue CardValue { get; private set; }
         public Suit Suit { get; private set; }
 
+
+        public bool Equals(Card other)
+        {
+            return (other.CardValue == this.CardValue && other.Suit == this.Suit);
+        }
 
         public override string ToString() => $"{CardValue} {Suit}";
     }

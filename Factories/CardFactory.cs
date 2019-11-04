@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Poker.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Poker
 {
-    public static class CardHelper
+    public static class CardFactory
     {
         internal static Card BuildCard(string cardText)
         {

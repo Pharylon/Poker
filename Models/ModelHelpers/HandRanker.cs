@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Poker
+namespace Poker.Models.ModelHelpers
 {
     static class HandRanker
     {
@@ -37,16 +37,20 @@ namespace Poker
 
         public static bool IsStraight(IEnumerable<Card> cards)
         {
-            Card lastCard = null;
-            foreach (var card in cards.OrderByDescending(x => x.CardValue))
+            var orderedValues = cards.Select(x => x.CardValue).OrderByDescending(x => x).ToArray();
+            var highValue = (int)orderedValues.First();
+            var otherValues = orderedValues.Skip(1).Sum(x => (int)x);
+            if (highValue*2 - otherValues == orderedValues.Length)
             {
-                if (lastCard != null && lastCard.CardValue - card.CardValue != 1)
-                {
-                    return false;
-                }
-                lastCard = card;
+                return true;
             }
-            return true;
+            //This is for an ace-low stright. This part WILL fail if we ever 
+            //do more than three-card poker!!!
+            if (highValue == 14 && otherValues == 5)
+            {
+                return true;
+            }
+            return false;
         }
 
         public static bool IsPair(IEnumerable<Card> cards)
@@ -62,13 +66,5 @@ namespace Poker
         }
     }
 
-    public enum HandRank
-    {
-        HighCard = 1,
-        Pair = 2,
-        Flush = 3,
-        Straight = 4,
-        ThreeOfAKind = 5,
-        StraightFlush = 6,
-    }
+
 }

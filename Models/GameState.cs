@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Poker
+namespace Poker.Models
 {
     public class GameState
     {

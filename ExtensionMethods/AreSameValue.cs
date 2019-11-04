@@ -17,15 +17,12 @@ namespace Poker
                 if (!valueAssigned)
                 {
                     valueAssigned = true;
-                    lastValue = currentValue;
                 }
-                else
+                else if (!currentValue.Equals(lastValue))
                 {
-                    if (!currentValue.Equals(lastValue))
-                    {
-                        return false;
-                    }
+                    return false;
                 }
+                lastValue = currentValue;              
             }
             return true;
         }
